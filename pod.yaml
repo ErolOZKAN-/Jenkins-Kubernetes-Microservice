@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: jenkins-pod
+  labels:
+    name: jenkins
+spec:
+  volumes:
+  - name: jenkins-storage
+    persistentVolumeClaim:
+      claimName: jenkins-pvc
+  containers:
+  - name: task-pv-container
+    image: jenkins
+    ports:
+    - containerPort: 8080
+      name: "http-server"
+    volumeMounts:
+    - mountPath: "/var/jenkins_home"
+      name: jenkins-storage
+
