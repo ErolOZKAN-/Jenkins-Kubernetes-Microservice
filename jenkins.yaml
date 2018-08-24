@@ -12,11 +12,15 @@ spec:
       labels:
         app: jenkins
     spec:
+      volumes:
+      - name: task-pv-storage
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
       containers:
       - name: jenkins
         image: jenkins
         ports:
         - containerPort: 8080
-
-
-
+        volumeMounts:
+         - mountPath: "/usr/share/nginx/html"
+           name: task-pv-storage
